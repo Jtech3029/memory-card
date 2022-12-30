@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './components/Card';
 import { imageList } from "./imgs/imageList";
+import "./styles/app.css";
 
 function App() {
   const [hasLost, setHasLost] = useState(false);
@@ -22,6 +23,9 @@ function App() {
     }
   })
 
+  /**
+   * resets the game
+   */
   function resetGame() {
     if(hasLost === true){
       setHasLost(false);
@@ -30,10 +34,21 @@ function App() {
       setHasWon(false);
     }
     setCounter(0);
-    setPokemonArray(randomizeArray(imageList));
+    //dunno why but the game will break if you dont do this. imageList shouldn't be tampered but it has been :)
+    let newArray = imageList.slice();
+    for(let i = 0; i < newArray.length; i++){
+      newArray[i][2] = false;
+    }
+    setPokemonArray(randomizeArray(newArray));
   }
+
+  /**
+   * takes an array and randomizes it
+   * @param {array} array 
+   * @returns a randomized array
+   */
   function randomizeArray(array) {
-    let newArray = array.slice(0);
+    let newArray = array.slice();
   
     for (var i = newArray.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
@@ -46,10 +61,10 @@ function App() {
   }
 
   return (
-     <div>
+     <div id='app'>
       {hasLost === false && hasWon === false &&
-      <div>
-        {counter}
+      <div id='counter'>
+        Counter: {counter}
       </div>
       }
       {hasLost === false && hasWon === false &&
@@ -65,16 +80,16 @@ function App() {
       setCounter={setCounter}
       endGame={setHasLost}/>)}
       {hasLost === true &&
-      <div>
+      <div className='end-message'>
       u suck  
-      <button onClick={resetGame}>
+      <button onClick={resetGame} className="reset-button">
       play again?
       </button>  
       </div>}
       {hasWon === true &&
-      <div>
+      <div className='end-message'>
       u dont suck
-      <button onClick={resetGame}>
+      <button onClick={resetGame} className="reset-button">
       play again?
       </button>  
       </div>

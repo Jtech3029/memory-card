@@ -1,3 +1,5 @@
+import "../styles/card.css"
+
 function Card(props) {
     /**
      * when the component has been clicked, it updates the component and checks if the component has been pressed twice
@@ -13,6 +15,7 @@ function Card(props) {
      * @returns a randomized array that also updates whether the card has been pressed or not
      */
     function checkIfTrue(array) {
+        console.log(array)
         if(array[props.index][2] === false){
             let newArray = array.splice(0);
             newArray[props.index][2] = true;
@@ -21,7 +24,7 @@ function Card(props) {
         props.endGame(true);
     }
     return (
-        <div id={props.pokemonName} onClick={hasClicked}>
+        <div id={props.pokemonName} className="pokemon" onClick={hasClicked}>
             <img src={props.image} alt="A pokemon"/>
             <div>{props.pokemonName}</div>
         </div>
