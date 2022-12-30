@@ -15,7 +15,6 @@ function Card(props) {
      * @returns a randomized array that also updates whether the card has been pressed or not
      */
     function checkIfTrue(array) {
-        console.log(array)
         if(array[props.index][2] === false){
             let newArray = array.splice(0);
             newArray[props.index][2] = true;
